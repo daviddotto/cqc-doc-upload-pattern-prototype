@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-GOV.UK Prototype Kit
+  Upload supporting documents
 {% endblock %}
 
 {% macro documentItem(docKey) %}
@@ -25,6 +25,24 @@ GOV.UK Prototype Kit
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+
+    {% if data.fileUploaded %}
+
+      <div class="govuk-success-summary govuk-!-padding-2 govuk-!-margin-bottom-5">
+        <h4 class="govuk-heading-s govuk-!-margin-bottom-0">{{ data.docUploadContent[data['selectedDocument']].title }} was uploaded</h4>
+      </div>
+
+      <style>
+        .govuk-success-summary {
+          border: 5px solid #00703c;
+        }
+        .govuk-success-summary .govuk-heading-s {
+          color: #00703c;
+        }
+      </style>
+
+    {% endif %}
+
     <h1 class="govuk-heading-xl">
       Upload supporting documents
     </h1>
