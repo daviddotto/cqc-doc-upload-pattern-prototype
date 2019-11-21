@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+
+{% set document = data.docUploadContent[data['selectedDocument']] %}
+
+{% block pageTitle %}
+    {{ document.title }}
+{% endblock %}
+
+{% block beforeContent %}
+
+    {{ govukBackLink ({
+        text: 'Back',
+        href: 'javascript:history.back()'
+    }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="index" id="uploadForm">
+
+                <h1 class="govuk-heading-l">{{ document.title }}</h1>
+
+                {{ document.supportingInfo | safe }}
+
+                <div class="file-selector" id="fileSelector">
+
+                    {{ govukFileUpload({
+                        id: 'upload-' + data['selectedDocument'],
+                        name: 'upload-' + data['selectedDocument'],
+                        label: {
+                            text: "Upload a file"
+                        }
+                    }) }}
+
+                </div>
+
+                <div id="loaderContainer" style="display: inline-block;"></div>
+
+                <p></p>
+
+                <input type="hidden" name="doc--{{ data['selectedDocument'] }}" value="complete">
+
+                {{ govukButton ({
+                    type: 'button',
+                    attributes: {
+                        id: 'uploadAndContinue'
+                    },
+                    html: 'Upload and continue'
+                }) }}
+
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+
+<script>
+
+    $('#uploadAndContinue').on('click', function() {
+        var loader = new GOVUK.Loader()
+        loader.init({
+            container: 'loaderContainer',
+            label: true,
+            labelText: 'Uploading and processing file...'
+        })
+        $('#fileSelector').hide()
+        $(this).prop('disabled', true)
+        setTimeout(function(){ $('#uploadForm').submit(); }, 3000);
+    })
+
+</script>
+
+{% endblock %}

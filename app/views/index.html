@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% macro documentItem(docKey) %}
+
+  {% set isUploaded = data['doc--' + docKey] == 'complete' %}
+
+  <li class="app-task-list__item">
+    <span class="app-task-list__task-name">
+      <a href="{{ 'existing-file.html' if isUploaded else 'upload-document.html' }}?selectedDocument={{ docKey }}">
+        {{ data.docUploadContent[docKey].title }}
+      </a>
+    </span>
+    {% if isUploaded %}
+      <strong class="govuk-tag app-task-list__task-completed">Completed</strong>
+    {% endif %}
+  </li>
+
+{% endmacro %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      Upload supporting documents
+    </h1>
+
+    <p>
+      Upload these 13 supporting documents. They help show how you can meet regulatory standards - for example, on safety and quality.
+    </p>
+
+    <div class="app-task-list">
+      <li>
+        <ul class="app-task-list__items govuk-!-padding-left-0">
+          {# All documents are set in app/data/session-data-defaults.js - content must edited there #}
+          {% for docKey, document in data.docUploadContent %}
+            {{ documentItem(docKey) }}
+          {% endfor %}
+        </ul>    
+      </li>
+    </div>
+
+    {{ govukButton ({
+      text: 'Save and continue',
+      href: '#',
+      classes: ' '
+    }) }}
+
+    <p>
+      <a href="../task-list.html">Go to your “to do” list</a>
+    </p>
+
+  </div>
+</div>
+
+{% endblock %}

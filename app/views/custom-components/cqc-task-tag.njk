@@ -1,0 +1,17 @@
+{% macro cqcTaskTag(taskData) %}
+    {% set completeTagHTML %}
+        <strong class="govuk-tag app-task-list__task-completed">Completed</strong>
+    {% endset %}
+
+    {% set inProgressTagHTML %}
+        <strong class="govuk-tag app-task-list__task-completed" style="background: #f47738">In progress</strong>
+    {% endset %}
+
+    {% if taskData %}
+        {% if taskData == 'complete' %} 
+            {{ completeTagHTML | safe }}
+        {% else %}
+            {{ inProgressTagHTML | safe }}
+        {% endif %}
+    {% endif %}
+{% endmacro %}
