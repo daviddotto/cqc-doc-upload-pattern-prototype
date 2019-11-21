@@ -27,6 +27,10 @@
 
                 {{ document.supportingInfo | safe }}
 
+                <p class="govuk-hint govuk-!-margin-top-7">
+                    <strong>File format and size rules:</strong> the file must be PDF, Word, Excel (or equivalent) and no more than 1MB  
+                </p>
+
                 <div class="file-selector" id="fileSelector">
 
                     {{ govukFileUpload({
