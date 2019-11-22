@@ -23,6 +23,7 @@ $govuk-assets-path: '/govuk/assets/';
     text-align: center;
     position: relative;
     line-height: 0;
+
     &:focus {
         outline: 3px solid $govuk-focus-colour;
     }
@@ -32,6 +33,7 @@ $govuk-assets-path: '/govuk/assets/';
     }
 
     &__label {
+        font-family: $govuk-font-family;
         display: block;
         line-height: 1em;
         margin-top: -0.5em;

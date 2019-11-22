@@ -29,7 +29,9 @@
     {% if data.fileUploaded %}
 
       <div class="govuk-success-summary govuk-!-padding-2 govuk-!-margin-bottom-5">
-        <h4 class="govuk-heading-s govuk-!-margin-bottom-0">{{ data.docUploadContent[data['selectedDocument']].title }} was uploaded</h4>
+        <h4 class="govuk-heading-s govuk-!-margin-bottom-0">
+          {{ data.docUploadContent[data['selectedDocument']].name }} was uploaded
+        </h4>
       </div>
 
       <style>
