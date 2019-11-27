@@ -7,6 +7,7 @@ const router = express.Router()
 router.all('*', (req, _, next) => {
     req.session.data['time'] = new Date().getTime()
     req.session.data['fileUploaded'] = false
+    req.session.data['fileProcessing'] = false
     next()
 })
 

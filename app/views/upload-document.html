@@ -10,7 +10,8 @@
 
     {{ govukBackLink ({
         text: 'Back',
-        href: 'javascript:history.back()'
+        href: 'index',
+        classes: 'backLink'
     }) }}
 
 {% endblock %}
@@ -59,7 +60,7 @@
                 }) }}
 
                 <p>
-                    <a href="index">Go back to list of files</a>
+                    <a class="backLink" href="index">Go back to list of files</a>
                 </p>
 
             </form>
@@ -74,6 +75,8 @@
 
 <script>
 
+    var processingLink = 'index?fileProcessing=true'
+
     $('#uploadAndContinue').on('click', function() {
         var loader = new GOVUK.Loader()
         loader.init({
@@ -83,6 +86,7 @@
         })
         $('#fileSelector').hide()
         $(this).prop('disabled', true)
+        $('.backLink').attr('href', processingLink)
         setTimeout(function(){ $('#uploadForm').submit(); }, 3000);
     })
 
