@@ -10,7 +10,7 @@
 
     {{ govukBackLink ({
         text: 'Back',
-        href: 'index',
+        href: 'doc-list',
         classes: 'backLink'
     }) }}
 
@@ -22,7 +22,7 @@
 
         <div class="govuk-grid-column-two-thirds">
 
-            <form action="index" id="uploadForm">
+            <form action="doc-list" id="uploadForm">
 
                 <h1 class="govuk-heading-l">{{ document.title }}</h1>
 
@@ -60,7 +60,7 @@
                 }) }}
 
                 <p>
-                    <a class="backLink" href="index">Go back to list of files</a>
+                    <a class="backLink" href="doc-list">Go back to list of files</a>
                 </p>
 
             </form>
@@ -75,7 +75,7 @@
 
 <script>
 
-    var processingLink = 'index?fileProcessing=true'
+    var processingLink = 'doc-list?fileProcessing=true'
 
     $('#uploadAndContinue').on('click', function() {
         var loader = new GOVUK.Loader()

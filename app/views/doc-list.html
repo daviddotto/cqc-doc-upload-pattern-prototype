@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Upload supporting documents
+{% endblock %}
+
+{% macro documentItem(docKey, isPending=false) %}
+
+  {% set isUploaded = data['doc--' + docKey] == 'complete' %}
+
+  <li class="app-task-list__item">
+      {% if isPending %}
+        <span class="app-task-list__task-name">
+            {{ data.docUploadContent[docKey].title }}        
+        </span>
+        <strong class="govuk-tag app-task-list__task-completed" style="background: transparent; color: black; padding-right: 0;">Processing</strong>
+      {% else %}
+        <span class="app-task-list__task-name">
+          <a href="{{ 'existing-file.html' if isUploaded else 'upload-document.html' }}?selectedDocument={{ docKey }}">
+            {{ data.docUploadContent[docKey].title }}
+          </a>
+        
+        </span>
+        {% if isUploaded %}
+          <strong class="govuk-tag app-task-list__task-completed">Completed</strong>
+        {% endif %}
+      {% endif %}
+  </li>
+
+{% endmacro %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {% if data.fileUploaded %}
+
+      <div class="govuk-success-summary govuk-!-padding-2 govuk-!-margin-bottom-5">
+        <h4 class="govuk-heading-s govuk-!-margin-bottom-0">
+          {{ data.docUploadContent[data['selectedDocument']].name }} was uploaded
+        </h4>
+      </div>
+
+      <style>
+        .govuk-success-summary {
+          border: 5px solid #00703c;
+        }
+        .govuk-success-summary .govuk-heading-s {
+          color: #00703c;
+        }
+      </style>
+
+    {% endif %}
+
+    <h1 class="govuk-heading-xl">
+      Upload supporting documents
+    </h1>
+
+    <p>
+      Upload these 13 supporting documents. They help show how you can meet regulatory standards - for example, on safety and quality.
+    </p>
+
+    <div class="app-task-list">
+      <li>
+        <ul class="app-task-list__items govuk-!-padding-left-0">
+          {# All documents are set in app/data/session-data-defaults.js - content must edited there #}
+          {% for docKey, document in data.docUploadContent %}
+            {{ documentItem(docKey, data['fileProcessing'] and data['selectedDocument'] == docKey) }}
+          {% endfor %}
+        </ul>    
+      </li>
+    </div>
+
+    {{ govukButton ({
+      text: 'Save and continue',
+      href: '#',
+      classes: ' '
+    }) }}
+
+    <p>
+      <a href="../task-list.html">Go to your “to do” list</a>
+    </p>
+
+  </div>
+</div>
+
+{% endblock %}
