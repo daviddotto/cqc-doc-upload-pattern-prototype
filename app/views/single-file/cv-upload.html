@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+{{ document.title }}
+{% endblock %}
+
+{% block beforeContent %}
+
+{{ govukBackLink ({
+        text: 'Back',
+        href: 'doc-list',
+        classes: 'backLink'
+    }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+        <form action="{{'info' if not data['fromCheck'] else 'check-your-answers'}}" id="uploadForm">
+
+            <h1 class="govuk-heading-l">Upload work history</h1>
+
+            <p class="govuk-hint govuk-!-margin-top-7">
+                <strong>File format and size rules:</strong> the file must be PDF, Word, Excel (or equivalent) and no
+                more than 1MB
+            </p>
+
+            <div class="file-selector" id="fileSelector">
+
+                {{ govukFileUpload({
+                        id: 'upload-' + data['selectedDocument'],
+                        name: 'upload-' + data['selectedDocument'],
+                        label: {
+                            text: "Upload a file"
+                        }
+                    }) }}
+
+            </div>
+
+            <div id="loaderContainer" style="display: inline-block;"></div>
+
+            {{ govukInsetText ({
+                text: 'You may be asked for references later on in the registration process. '
+            }) }}
+
+            <input type="hidden" name="doc--cv" value="complete">
+            <input type="hidden" name="fileUploaded" value="true">
+
+            {{ govukButton ({
+                    type: 'button',
+                    attributes: {
+                        id: 'uploadAndContinue'
+                    },
+                    html: 'Upload and continue'
+                }) }}
+
+            <p>
+                <a class="backLink" href="doc-list">Go back to list of files</a>
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+
+<script>
+
+    var processingLink = 'doc-list?fileProcessing=true'
+
+    $('#uploadAndContinue').on('click', function () {
+        var loader = new GOVUK.Loader()
+        loader.init({
+            container: 'loaderContainer',
+            label: true,
+            labelText: 'Uploading and processing file...'
+        })
+        $('#fileSelector').hide()
+        $(this).prop('disabled', true)
+        $('.backLink').attr('href', processingLink)
+        setTimeout(function () { $('#uploadForm').submit(); }, 3000);
+    })
+
+</script>
+
+{% endblock %}

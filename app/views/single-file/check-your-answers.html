@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+    Page title
+{% endblock %}
+
+{% block beforeContent %}
+
+    {{ govukBackLink ({
+        text: 'Back',
+        href: 'javascript:history.back()'
+    }) }}
+
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-xl">Check your answers before sending your application</h1>
+
+      {{ govukSummaryList({
+        classes: 'govuk-!-margin-bottom-9',
+        rows: [
+          {
+            key: {
+              text: "Name"
+            },
+            value: {
+              text: data['name']
+            },
+            actions: {
+              items: [
+                {
+                  href: "name?fromCheck=true",
+                  text: "Change",
+                  visuallyHiddenText: "name"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Work history"
+            },
+            value: {
+              text: 'Uploaded successfully'
+            },
+            actions: {
+              items: [
+                {
+                  href: "correct-cv",
+                  text: "Change",
+                  visuallyHiddenText: "cv"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Skills"
+            },
+            value: {
+              html: data['skills']
+            },
+            actions: {
+              items: [
+                {
+                  href: "skills",
+                  text: "Change",
+                  visuallyHiddenText: "skills"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Now send your application</h2>
+
+      <p class="govuk-body">By submitting this notification you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
+
+      <form action="/index" novalidate>
+
+        <input type="hidden" name="answers-checked" value="true">
+
+        {{ govukButton({
+          text: "Accept and send"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}
