@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+    Sorry, the Register with CQC service is unavailable
+{% endblock %}
+
+{% block beforeContent %}
+
+    {{ govukBackLink ({
+        text: 'Back',
+        href: 'javascript:history.back()'
+    }) }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-xl">Sorry, the Register with CQC service is unavailable</h1>
+
+            <p>We are currently trying to fix the problem. Please try again later.</p>
+
+            <p>If you have any questions, please contact:</p>
+
+            {{ govukSummaryList ({
+                rows: [
+                    {
+                        key: {
+                            text: 'Email'
+                        },
+                        value: {
+                            text: 'CQCContactCentreNewRegistration@cqc.org.uk'
+                        }
+                    },
+                    {
+                        key: {
+                            text: 'Telephone'
+                        },
+                        value: {
+                            text: '03000 616161 then select option 5'
+                        }
+                    }
+                }
+            }) }}
+
+
+            <p>Opening times are Monday to Friday from 8:30am to 5:30pm.</p>
+
+        </div>
+
+</div>
+
+{% endblock %}
